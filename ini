@@ -1,0 +1,8 @@
+[storge]
+csv_lib = csv/
+[mod]
+mode_name_list = []
+mode_init_dict = {}
+[mask]
+list = {'hot_get':{'mode':'0','step_time':'5','start_time':'0','stop_time':'23'},'get_hot_pl':{'mode':'1','time':[12,0]}}
+ini_list = {'hot_get':['w_h_s=weibo_hot_spider()','w_h_s.get_hot_list()'],'get_hot_pl':['g_h_p=weibo_hot_spider()','g_h_p.run_get_hot_pl()']}
