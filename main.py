@@ -1,11 +1,11 @@
 #已开源至Github:AYOMITA(阿尤米塔)
 
-class request(object):
+class request(object):#请求器，框架的一部分
     def __init__(self):
         self.MY = str(self.__class__.__name__) + ':'
         self.max_error = 10
         self.time_out = 10
-        self.header = {'cookie':'SINAGLOBAL=7454122815301.589.1686663142082; ALF=1718199168; SUB=_2AkMT1WJIf8NxqwFRmfkWzmrjaYV_yg_EieKliZOTJRMxHRl-yT9kqnQBtRB6OFVMpyogT9AqU7Ton9qU-HnTLJSvGmJ5; SUBP=0033WrSXqPxfM72-Ws9jqgMF55529P9D9WFZl_TmDjTdjqgLhF27nluq; _s_tentry=-; Apache=8656449617428.663.1686820511955; ULV=1686820511982:3:3:3:8656449617428.663.1686820511955:1686760832855',
+        self.header = {'cookie':'YOUR_COOKIE!!!!!!!',
                        'referer':'https://s.weibo.com/',
                        }
 
@@ -193,7 +193,7 @@ class weibo_hot_spider(object):
         hot_csv_list = exp.get_list()
 
 
-class explor(object):
+class explor(object):#框架的一部分，由于存在强依赖，因此在这里保留
     def __init__(self) -> None:
         self.MY = str(self.__class__.__name__) + ':'
 
@@ -262,154 +262,6 @@ class due_bit(object):
     def __init__(self) -> None:
         self.MY = str(self.__class__.__name__) + ':'
 
-class output(object):#统一输出器
-    def __init__(self) -> None:
-        self.MY = str(self.__class__.__name__) + ':'
-        self.mode = 'o_p'
-
-    def put(self,txt):
-        init = {'all':['log(log_path)','print(put_string)'],
-                'o_p':['print(put_string)'],
-                'o_l':['log(log_path)'],
-                'None':['print("Out put错误")'],
-                }
-        import datetime
-        global main_path
-        time = '[' + str(datetime.datetime.now().strftime('%F')) + '][' + str(datetime.datetime.now().strftime('%T')) + ']'
-        put_string = str(time) + str(txt)
-        def log(log_path):
-            log_path = main_path + '/log'
-            with open(log_path,'a') as file_read:
-                log_txt = put_string + '\n'
-                file_read.write(log_txt)
-            return None
-        ini_list = init[self.mode]
-        for i in ini_list:
-            exec(i)
-
-class masker(object):
-    def __init__(self):
-        self.MY = str(self.__class__.__name__) + ':'
-
-    def STD(self,string):#自定义统一输出
-        out = output()
-        string = self.MY + string
-        out.put(string)
-
-    def get_ini(self,section,key):
-        self.STD('获取ini:'+str(key))
-        import configparser
-        import json
-        global main_path
-        config = configparser.ConfigParser()
-        path = main_path + '/ini'
-        config.read(path)
-        ret_ = config.get(section,key)
-        ret_ = ret_.replace('\'','\"')
-        ret_ = json.loads(ret_)
-        return ret_
-
-    def Timer(self):
-        import time
-        import datetime
-        global time_min
-        global time_hour
-        while True:
-            time_min = int(datetime.datetime.now().strftime('%M'))
-            time_hour = int(datetime.datetime.now().strftime('%H'))
-            self.STD('全局时间更新服务正常:['+str(time_hour)+':'+str(time_min)+']')
-            time.sleep(60)
-
-    def run(self):
-        global time_hour
-        global time_min
-        import time
-        mask_list = []
-        mask_time_list = []
-        mask_dict = self.get_ini('mask','list')
-        mask_ini_dict = self.get_ini('mask','ini_list')
-        for i in mask_dict.keys():
-            mask_list.append(i)
-        for mask in mask_list:
-            mode = int(mask_dict[mask]['mode'])
-            if mode == 0:#轮询定时计划
-                step_time = int(mask_dict[mask]['step_time'])
-                start_time = int(mask_dict[mask]['start_time'])
-                stop_time = int(mask_dict[mask]['stop_time'])
-                hour = start_time
-                min = 0
-                while True:
-                    mask_time_list.append([hour,min,mask])
-                    min = min + step_time
-                    if min >= 60:
-                        hour = hour + 1
-                        min = 0
-                    if hour >= 24:
-                        hour = 0
-                        min = 0
-                    if hour == stop_time:
-                        break
-                    else:
-                        continue
-        self.STD('任务解析完成,总计:'+str(len(mask_time_list))+'个任务.')
-        while True:
-            for i in mask_time_list:
-                if int(i[0]) == int(time_hour):
-                    if int(i[1]) == int(time_min):
-                        self.STD('启动任务:'+str(i))
-                        ini_now = mask_ini_dict[i[2]]
-                        for i in ini_now:
-                            self.STD('执行命令:'+str(i))
-                            exec(i)
-            time.sleep(60)
-
-class Tread_pool(object):#自编线程池///嗯....为了能看到调用栈
-    def __init__(self):
-        self.max = 0
-        self.output_head = '线程池:'
-        self.name = 'Thread_'
-        self.manager_name = 'pool_assient_Thread'
-        self.running = {}#记录字典#键应当是活跃线程名,值应当是包含详细信息的列表.[function_name,back_function_name]
-
-    def stdo(self,string):
-        output = str(string)
-        print(self.output_head + output)
-
-    def born(self,max):
-        exec("import threading")
-        self.max = max
-        #pool_manager_thread = threading.Thread(target=self.pool_manager,name=)
-
-    def pool_manager(self):
-        return None
-
-    def submit(self,function):
-        return None
-
-def main():
-    mask = masker()
-    exp = explor()
-    def STD(string):
-        out = output()
-        out.mode = 'o_p'
-        string = str(__name__[2:-2]) + ':' + string
-        out.put(string)
-    def start():
-        import sys
-        import threading
-        global main_path
-        main_path = sys.path[0] + '/'
-        STD('主工作目录已确定:'+str(main_path))
-        timer = threading.Thread(target=mask.Timer,name='timer',daemon=True)
-        timer.start()
-        exp.start()
-    STD('系统启动:[{},{}]\n统一输出器设置的工作模式:'+str('Only_print'))
-    start()
-    mask.run()
-
-if __name__ == '__main__':
-    print('欢迎使用NER-3.0框架.\n群星璀璨,共谱星河万里.')
-    #main()
     ok = weibo_hot_spider()
     global csv_lib_path
     csv_lib_path = 'D:\learn\weibo\csv//'
