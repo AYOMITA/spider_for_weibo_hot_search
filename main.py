@@ -261,8 +261,3 @@ class explor(object):#框架的一部分，由于存在强依赖，因此在这�
 class due_bit(object):
     def __init__(self) -> None:
         self.MY = str(self.__class__.__name__) + ':'
-
-    ok = weibo_hot_spider()
-    global csv_lib_path
-    csv_lib_path = 'D:\learn\weibo\csv//'
-    ok.get_hot_pl(['庆余年2官宣阵容','11年前的今天太空迎来中国女性','嗯哼 追星成功太开心啦','吴倩方晒出院记录','国足vs缅甸'])
