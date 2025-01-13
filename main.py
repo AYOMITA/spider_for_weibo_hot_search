@@ -64,7 +64,7 @@ class weibo_hot_spider(object):
         self.MY = str(self.__class__.__name__) + ':'
         self.url_lib = {'hot':'https://s.weibo.com/top/summary?cate=realtimehot&sudaref=s.weibo.com&display=0&retcode=6102','hot_id':'https://m.weibo.cn/api/container/getIndex?containerid=100103type%3D1%26q%3D{}%26t%3D0&page_type=searchall','get_com':'https://m.weibo.cn/comments/hotflow?id={}&mid={}&max_id_type=0'}
         self.class_name_lib = {'td_class':'td-02','name_class':'name'}
-        self.cookie = 'SINAGLOBAL=7454122815301.589.1686663142082; _s_tentry=-; Apache=503981901177.2506.1686905627231; ULV=1686905627297:5:5:5:503981901177.2506.1686905627231:1686897438082; SUB=_2A25JiFPCDeRhGeFG6VoS-CvJzDyIHXVq_MIKrDV8PUNbmtANLRDnkW9NefcNtxMrR2ltHa7HKkKyY7ECSKOKq0hk; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF9kXfG-O-wLN2dXafQ_BjZ5JpX5KzhUgL.FoMReon01h-fS052dJLoIpnLxKqL1heLBK5LxK-LBo5L1KBEeh27eK5t; ALF=1718441745; SSOLoginState=1686905746'
+        self.cookie = '*****'
 
     def STD(self,string):#自定义统一输出
         out = output()
